@@ -1,0 +1,14 @@
+import { Injectable } from '@angular/core';
+
+
+@Injectable()
+export class Globals {
+  public siteUrl: string = "https://www.breslev.news/";
+  
+  public googleAnalyticsTrackingId: string = '';
+
+  constructor() {
+    
+  }
+
+}

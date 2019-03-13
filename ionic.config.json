@@ -1,0 +1,7 @@
+{
+  "name": "BreslevNews",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
