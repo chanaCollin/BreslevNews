@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Globals } from '../../providers/globals/globals';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -10,10 +11,11 @@ import { Globals } from '../../providers/globals/globals';
 })
 export class HomePage {
 
-  siteUrl:string;
+  siteUrl:any;
 
   constructor(public iab: InAppBrowser,
-              public globals:Globals) {
+              public globals:Globals,
+              public sanitizer:DomSanitizer ) {
 
     
 
@@ -21,6 +23,8 @@ export class HomePage {
 
   ionViewWillEnter (){
     this.siteUrl = this.globals.siteUrl;
+
+      this.siteUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.siteUrl);
     console.log(this.siteUrl);
   }
 

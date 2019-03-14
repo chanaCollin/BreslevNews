@@ -15,6 +15,8 @@ import { Network } from '@ionic-native/network/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Toast } from '@ionic-native/toast/ngx';
+
 
 import { Globals } from '../providers/globals/globals';
 
@@ -34,7 +36,8 @@ import { Globals } from '../providers/globals/globals';
     Device,
     AppVersion,
     InAppBrowser,
-    Globals
+    Globals,
+    Toast
   ],
   bootstrap: [AppComponent]
 })
