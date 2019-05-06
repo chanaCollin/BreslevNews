@@ -42,10 +42,6 @@
 
 ## Installation
 
-## Add Google analytics
-    $ ionic cordova plugin add cordova-plugin-google-analytics
-    $ npm install --save @ionic-native/google-analytics
-
 ## Add Onesignal
     $ ionic cordova plugin add onesignal-cordova-plugin
     $ npm install --save @ionic-native/onesignal
@@ -61,4 +57,7 @@
 ## Add App version
     $ ionic cordova plugin add cordova-plugin-app-version
     $ npm install --save @ionic-native/app-version
-
+    
+## Add In App Browser
+    $ ionic cordova plugin add cordova-plugin-inappbrowser
+    $ npm install @ionic-native/in-app-browser
