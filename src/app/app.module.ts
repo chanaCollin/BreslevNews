@@ -7,11 +7,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { Network } from '@ionic-native/network/ngx';
-import { Device } from '@ionic-native/device/ngx';
-import { AppVersion } from '@ionic-native/app-version/ngx';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { OneSignal } from '@ionic-native/onesignal';
+import { Network } from '@ionic-native/network';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { Globals } from  '../providers/globals/globals';
 
@@ -35,8 +33,6 @@ import { Globals } from  '../providers/globals/globals';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     OneSignal,
     Network,
-    Device,
-    AppVersion,
     Globals,
     InAppBrowser
   ]

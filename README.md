@@ -31,11 +31,11 @@
 
     4.
     $ cd C:\sdk\build-tools\28.0.3
-    $ zipalign -v 4 C:\shtibel\ionic\project\BreslevNews\apk\release\app-release-unsigned.apk C:\shtibel\ionic\project\BreslevNews\apk\release\BreslevNews-release-beta-0-0-3.apk
+    $ zipalign -v 4 C:\shtibel\ionic\project\BreslevNews\apk\release\app-release-unsigned.apk C:\shtibel\ionic\project\BreslevNews\apk\release\BreslevNews-release-beta-0-0-4.apk
 
 
     5.
-    $ apksigner verify C:\shtibel\ionic\BreslevNews\platforms\android\app\build\outputs\apk\release\BreslevNewsד-release-beta-03.apk
+    $ apksigner verify C:\shtibel\ionic\BreslevNews\platforms\android\app\build\outputs\apk\release\BreslevNews-release-beta-0-0-4.apk
 
 ## Start
     $ ionic start MyApp blank
@@ -44,20 +44,12 @@
 
 ## Add Onesignal
     $ ionic cordova plugin add onesignal-cordova-plugin
-    $ npm install --save @ionic-native/onesignal
+    npm install --save @ionic-native/onesignal@4
 
 ## Add Network
     $ ionic cordova plugin add cordova-plugin-network-information
-    $ npm install --save @ionic-native/network
-
-## Add Device
-    $ ionic cordova plugin add cordova-plugin-device
-    $ npm install --save @ionic-native/device
-
-## Add App version
-    $ ionic cordova plugin add cordova-plugin-app-version
-    $ npm install --save @ionic-native/app-version
-    
+    $ npm install --save @ionic-native/network@4
+        
 ## Add In App Browser
     $ ionic cordova plugin add cordova-plugin-inappbrowser
-    $ npm install @ionic-native/in-app-browser
+    npm install --save @ionic-native/in-app-browser@4
