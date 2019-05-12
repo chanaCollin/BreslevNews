@@ -52,4 +52,12 @@
         
 ## Add In App Browser
     $ ionic cordova plugin add cordova-plugin-inappbrowser
-    npm install --save @ionic-native/in-app-browser@4
+    $ npm install --save @ionic-native/in-app-browser@4
+
+## Add App Version
+    $ ionic cordova plugin add cordova-plugin-app-version
+    $ npm install @ionic-native/app-version@4
+
+## Add Device
+    $ ionic cordova plugin add cordova-plugin-device
+    $ npm install @ionic-native/device@4
