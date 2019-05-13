@@ -9,6 +9,7 @@ import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser'
 import { Device } from '@ionic-native/device';
 import { AppVersion } from '@ionic-native/app-version';
 import { ServerApiRequest } from '../providers/server-api-request/server-api-request';
+import { NotificationOpenedProvider } from '../providers/notification-opened/notification-opened'
 
 @Component({
   templateUrl: 'app.html'
@@ -25,8 +26,7 @@ export class MyApp {
     location: 'no',
     zoom: 'no'
   };
-
-
+  browser: any;
 
   constructor(public platform: Platform,
               public splashScreen: SplashScreen,
@@ -38,8 +38,10 @@ export class MyApp {
               public iab: InAppBrowser,
               public device:Device,
               public appVersion: AppVersion,
-              public serverApiRequest: ServerApiRequest ) {
-              this.initializeApp();
+              public serverApiRequest: ServerApiRequest,
+              public notificationOpenedProvider: NotificationOpenedProvider
+  ) {
+    this.initializeApp();
   }
   
 
@@ -47,8 +49,6 @@ export class MyApp {
 
 
     this.platform.ready().then(() => {
-     //this.hideSplashScreen();
-    
      //on reconnect
      this.network.onConnect().subscribe(() => {
        try {
@@ -79,7 +79,6 @@ export class MyApp {
               app_device_type: this.app_device_type,
               one_signal_id: this.oneSignal_id     
             }
-          
             this.serverApiRequest.setUserData(sendData).subscribe(data => {
               //console.log("data: "+data.row_id);
               //this.showIframe();
@@ -95,8 +94,8 @@ export class MyApp {
   private hideSplashScreen(){
     return new Promise(resolve => {
       console.log('hideSplashScreen');
-      this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.statusBar.styleDefault();
       resolve('this.splashScreen');
     });
   }
@@ -124,13 +123,7 @@ export class MyApp {
         });
         this.oneSignal.handleNotificationOpened().subscribe((jsonData) => {
           console.log('oneSignal Opened:', jsonData);
-          let page_url = jsonData.notification.payload.additionalData.page_url;
-          if(page_url){
-            //open url page
-            var scriptOpenPage = window.location.href = page_url;
-            let browser = this.iab.create(this.siteUrl,'_blank',this.options);
-            browser.executeScript({ code: scriptOpenPage });
-          }
+          this.notificationOpenedProvider.pushNotificationData(jsonData);
         });
         this.oneSignal.endInit();
         resolve(this.oneSignal);
@@ -145,14 +138,43 @@ export class MyApp {
 
    showIframe(){
     this.siteUrl = this.globals.siteUrl;
-    
-    let browser = this.iab.create(this.siteUrl,'_blank',this.options);
-    browser.on('loadstop').subscribe(()=>{
-      this.hideSplashScreen();
+
+    this.browser = this.iab.create(this.siteUrl,'_blank',this.options);
+    this.browser.on('loadstop').subscribe(()=>{
+      this.hideSplashScreen();      
+      /* Catch notification type */
+      this.notificationOpenedProvider.notificationData$.subscribe(jsonData => {
+        if (jsonData) {
+          let push_id = jsonData.notification.payload.additionalData.push_id;
+          let page_url = jsonData.notification.payload.additionalData.page_url;
+          //update open
+          this.serverApiRequest.setPushOpen(push_id)
+          .subscribe(data => {
+            console.log('setPushOpen: ',data);
+          });  
+          if(page_url){
+            //open url page
+            var scriptOpenPage = window.location.href = page_url;
+            this.platform.ready().then(() => {
+              if(this.browser){
+                this.browser = this.iab.create(this.siteUrl,'_blank',this.options);
+                this.browser.executeScript({ code: scriptOpenPage });
+                this.browser.on('loadstop').subscribe(()=>{
+                  this.hideSplashScreen();
+                })
+              }
+            });          
+          }
+        }
+      });
     })
-    browser.on('exit').subscribe((data)=>{
+    
+    this.browser.on('exit').subscribe((data)=>{
+      this.notificationOpenedProvider.pushNotificationDataClear();
       this.platform.exitApp();
     })
+
+
   }
 
   updateRegisterdUserData(){

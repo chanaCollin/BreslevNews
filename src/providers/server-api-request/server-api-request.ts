@@ -35,7 +35,14 @@ export class ServerApiRequest {
     .catch(this.catchError);
 
   }
-
+  
+  setPushOpen(push_id){
+    return this.http.get(this.globals.apiUrl+"?method=setPushOpen&push_id="+push_id)      
+    .map(this.extrectData)
+    .do(this.logResponse)
+    .catch(this.catchError)      
+  }
+  
   private catchError(error: Response | any){
     return Observable.throw(error.json().error || 'Server error');
   }

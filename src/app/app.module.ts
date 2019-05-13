@@ -18,6 +18,7 @@ import { Globals } from  '../providers/globals/globals';
 import { ServerApiRequest } from '../providers/server-api-request/server-api-request';
 
 import { HttpModule } from '@angular/http';
+import { NotificationOpenedProvider } from '../providers/notification-opened/notification-opened';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { HttpModule } from '@angular/http';
     InAppBrowser,
     ServerApiRequest,
     AppVersion,
-    Device
+    Device,
+    NotificationOpenedProvider
   ]
 })
 export class AppModule {}

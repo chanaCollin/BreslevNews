@@ -31,7 +31,7 @@
 
     4.
     $ cd C:\sdk\build-tools\28.0.3
-    $ zipalign -v 4 C:\shtibel\ionic\project\BreslevNews\apk\release\app-release-unsigned.apk C:\shtibel\ionic\project\BreslevNews\apk\release\BreslevNews-release-beta-0-0-4.apk
+    $ zipalign -v 4 C:\shtibel\ionic\project\BreslevNews\apk\release\app-release-unsigned.apk C:\shtibel\ionic\project\BreslevNews\apk\release\BreslevNews-release-beta-0-0-5.apk
 
 
     5.
